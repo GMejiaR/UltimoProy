@@ -59,13 +59,15 @@ public class Conversion {
     
     for(int i = 0; i<transicionLamb.size(); i++){
       if(((transicionLamb.get(i)).length() > 1) && ((transicionLamb.get(i+1)).length() > 1)){
-        //System.out.println("entra al mayor a 1");
-        //1;2 , 2;1
+        String actual = transicionLamb.get(i);
+        actual = actual.replace(";", "");
+        
         String posnext = transicionLamb.get(i+1);
+        posnext = posnext.replace(";", "");
         StringBuilder validacion = new StringBuilder();
         validacion.append(posnext);
         StringBuilder inverso = validacion.reverse();
-        String actual = transicionLamb.get(i);
+        
         if(actual.equals(inverso.toString())){
           transicionLamb.remove(i+1);
           System.out.println("Transicion borrada: " + transicionLamb);
@@ -95,14 +97,22 @@ public class Conversion {
     }
     
     //sacar un while con la matriz donde según el size de la pos de la arraylist con la clausura lambda vaya tirandole x veces al método con cambio, ahora lo que me devuelve el método tiene que ser el string en la linea de la letra en la posición que le mande, y si eso es diferente de o lo voy a copiar en la pos del [arreglolambda][letraalfabetovalidando]
+    
 
     //lenar la matriz
     for(int i = 0; i < transicionLamb.size()-1; i ++){
-      for(int j= 0; j < listAlfabeto.length; j++){
-        int = transicionLamb.get(i)
-        while(){
-          if 
-        }
+      for(int j= 1; j < listAlfabeto.length; j++){
+        
+        //
+        //cont =0;
+        //while(cont< por length de la pos[j] en el arreglo transiionLamb)){ -->12
+            //char at cont -->1
+            // mandarlo al cambio -->j 1
+            //lo que nos regrese del cambio -->3
+            //le hacemos un contain al arraylist y la posicion en la que esté ese contains va a ser la que vamos a ir a poner en la posición en la que estamos iterando->0
+          //if (lo que nos regrese del contains != 0) lo ponemos en esa pos [i][j]
+          //
+        //}
         
       }
     }
@@ -111,6 +121,10 @@ public class Conversion {
     
     archivo.close();
   }
-  public static String Cambio()
+  //public static String Cambio(String path, Char numerolamda, String #letra);
+  //next x4
+  //dependiendo de la #letra hacemos cantidad next
+  //en el string de la linea que hayamos llegado nos vamos a la posicion numero -- 2
+  //regresamos lo que está en esa posición  ->0
   
 }

@@ -60,6 +60,7 @@ public class Prueba{
     /////////////////////////////////////////////////////////////////
     
     while(archivo.hasNext()){
+      
       String actual = archivo.next();
       if (patron.get(cont) == patron.get(cont+1)){
         ArrayList<String> repetidos = new ArrayList<String>();
@@ -80,14 +81,58 @@ public class Prueba{
         }
         int ver = 0;
         int tam = repetidos.size();
+        ArrayList<String> examinado = new ArrayList<String>();
         while(ver < tam){
-          String inst =(repetidos.get(ver)).substring(3,((repetidos.get(ver)).length())-1);
+          String inst =(repetidos.get(ver)).substring(3,((repetidos.get(ver)).length()));
+          System.out.println("instruccion");
+          System.out.println(inst);
+          System.out.println("-------");
           if(verificarRegla(inst)){
             if(verificarRetornable(inst, actual.substring(0,1))){
+              System.out.println("llego");
+              System.out.println(inst);
+              System.out.println("-------");
               int cantmin = inst.length()-1;
               if(cantmin > 1){
-                ///////////////////////////////X->abX//////////////////////////////////////
+                ///////////////////////////////X->baX//////////////////////////////////////
 
+                /////////////////////////////////////////////////////////////////////
+                int a = 0;
+                  cont++;
+              }else if(cantmin == 1){
+                ///////////////////////////////X->bX//////////////////////////////////////
+                System.out.println("q");
+                int ca1 = 0;
+                int ant = estact;
+                int a1 = 0;
+                int a2 = 1;
+                while(ca1<cantmin){
+                  if(ca1 == cantmin-1){
+                    String letraaqui = inst.substring(a1,a2);
+                    String aponer = Integer.toString(poscolm(letraaqui));
+                    String adonde = Integer.toString(estact+2);
+                    String ingresar = aponer+adonde;
+                    examinado.add(ingresar);
+                    System.out.println("ingresar");
+                    System.out.println(ingresar);
+                    System.out.println("-------");
+                    estact = ant;
+                    break;
+                  }else{
+                    String letraaqui = inst.substring(a1,a2);
+                    String aponer = Integer.toString(poscolm(letraaqui));
+                    String adonde = Integer.toString(estact+2);
+                    String ingresar = aponer+adonde;
+                    examinado.add(ingresar);
+                    System.out.println("ingresar");
+                    System.out.println(ingresar);
+                    System.out.println("-------");
+                    ca1++;
+                    estact++;
+                    a1++;
+                    a2++;
+                  }
+                }
                 /////////////////////////////////////////////////////////////////////
                 cont++;
               }
@@ -119,6 +164,9 @@ public class Prueba{
           
       }else{
         String instruccion = actual.substring(3,actual.length());
+        System.out.println("instruccion");
+          System.out.println(instruccion);
+          System.out.println("-------");
         if(verificarRegla(instruccion)){
           if(verificarRetornable(instruccion, actual.substring(0,1))){
             int cantmin = instruccion.length()-1;
@@ -146,8 +194,6 @@ public class Prueba{
                     if(ca1 == poscol){
                       String adonde= Integer.toString(estact+2);
                       matrizafd[estact][ca1] = adonde;
-                      System.out.println("instruccion3");
-                      System.out.println(adonde);
                       
                     }else{
                       matrizafd[estact][ca1] = "0";

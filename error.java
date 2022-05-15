@@ -166,35 +166,7 @@
           }else{
             int cantmin = instruccion.length();
             if(cantmin > 1){
-              int c3 = 1;
-              int au1 =0;
-              int au2 = 1;
-              while(c3<=cantmin){
-                if(c3 == cantmin){
-                  break;
-                }else{
-                  int ca1 = 0;
-                  int poscol = poscolm(instruccion.substring(au1,au2));
-                  
-                  while(ca1<listAlfabeto.length){
-                    if(ca1 == poscol){
-                      String adonde= Integer.toString(estact+2);
-                      matrizafd[estact][ca1] = adonde;
-                      System.out.println("instruccion3");
-                      System.out.println(adonde);
-                      
-                    }else{
-                      matrizafd[estact][ca1] = "0";
-                    }
-                    ca1++;
-                  }
-                  estact++;
-                  cont++;
-                  au1++;
-                  au2++;
-                }
-                c3++;
-              }
+              
             }else if(cantmin == 0){
               int poscol = poscolm(instruccion.substring(0,1));
               int c1 = 0;
