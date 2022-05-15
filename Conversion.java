@@ -1,5 +1,6 @@
 import java.io.*;
 import java.util.*;
+import java.lang.*;
 
 public class Conversion {
   public static void main(String[] args) throws Exception{
@@ -35,7 +36,7 @@ public class Conversion {
   
   //1. sacar alfabeto -->YA
   //2. sacar transiciones lambda de la 4ta línea en un método a parte
-    //--->2.1 CASES ver si esas transiciones tienen los mismos elementos a otras para juntarlas en un mismo arreglo y si son diferentes ponerlas en un arreglo aparte en siguiente posición
+    //--->2.1 CASES ver si esas transiciones tienen los mismos elementos a otras para juntarlas en un mismo arreglo y si son diferentes ponerlas en un arreglo aparte en siguiente posición --> YA
     
   // hacer una matriz con matriz[alfabeto][lengthtransicioneslambda]
   // con ahora la matriz ir recorriendola y en otro método hacer el cambio desde la línea 5-7 para ver que hay en la posicion de la clausura con cada una de las letras
@@ -52,18 +53,64 @@ public class Conversion {
     for(int i = 0; i < transiciones.length; i++){
       transicionLamb.add(transiciones[i]);
     }
-
-    for(int i = 0; i<transiciones.length; i++){
-      if((transicionLamb.get(i).size() > 1) && (transicionLamb.get(i+1).size > 1)){
-        if(transicionLamb.get(i).substring(0,1).equals(transicionLamb.get(i+1).substring)){
-          1;2, 2;1,
+    //transicionLamb.add("");
+    
+    ArrayList<String> transicionAux = new ArrayList<String>();
+    
+    for(int i = 0; i<transicionLamb.size(); i++){
+      if(((transicionLamb.get(i)).length() > 1) && ((transicionLamb.get(i+1)).length() > 1)){
+        //System.out.println("entra al mayor a 1");
+        //1;2 , 2;1
+        String posnext = transicionLamb.get(i+1);
+        StringBuilder validacion = new StringBuilder();
+        validacion.append(posnext);
+        StringBuilder inverso = validacion.reverse();
+        String actual = transicionLamb.get(i);
+        if(actual.equals(inverso.toString())){
+          transicionLamb.remove(i+1);
+          System.out.println("Transicion borrada: " + transicionLamb);
+          //continue;
         }
       }
+      
+    }
+
+    //Crear la matriz y llenarla de 0
+    String[][] matrizPos = new String[transicionLamb.size()-1][listAlfabeto.length];
+    for(int i = 0; i < transicionLamb.size()-1; i ++){
+      for(int j= 0; j < listAlfabeto.length; j++){
+        matrizPos[i][j] = "0";
+        
+      }
+    }
+
+    //Imprimir matriz
+    for (int x=0; x < matrizPos.length; x++) {
+      System.out.print("|");
+      for (int y=0; y < matrizPos[x].length; y++) {
+        System.out.print (matrizPos[x][y]);
+        if (y!=matrizPos[x].length-1) System.out.print("\t");
+      }
+      System.out.println("|");
     }
     
-    //1. pasamos los elementos a la arraylist
-    //2. recorremos la arraylist y con .get .size >1 en pos y pos+1 tons son transiciones con lambda
-        //2.1 pa verificar que se referencian entre si y guardarla en una sola transición, se comparan los dos numeritos separados por ; 
+    //sacar un while con la matriz donde según el size de la pos de la arraylist con la clausura lambda vaya tirandole x veces al método con cambio, ahora lo que me devuelve el método tiene que ser el string en la linea de la letra en la posición que le mande, y si eso es diferente de o lo voy a copiar en la pos del [arreglolambda][letraalfabetovalidando]
+
+    //lenar la matriz
+    for(int i = 0; i < transicionLamb.size()-1; i ++){
+      for(int j= 0; j < listAlfabeto.length; j++){
+        int = transicionLamb.get(i)
+        while(){
+          if 
+        }
+        
+      }
+    }
+  
+    
+    
     archivo.close();
   }
+  public static String Cambio()
+  
 }
