@@ -88,7 +88,12 @@ public class Prueba{
           System.out.println(inst);
           System.out.println("-------");
           if(verificarRegla(inst)){
-            if(verificarRetornable(inst, actual.substring(0,1))){
+            int tamaño = ((repetidos.get(ver)).length());
+            String ojo = (repetidos.get(ver)).substring(tamaño-1,tamaño);
+            System.out.println("ojo");
+            System.out.println(ojo);
+            System.out.println("-------");
+            if(verificarRetornable(inst, (repetidos.get(ver)).substring(0,1))){
               System.out.println("llego");
               System.out.println(inst);
               System.out.println("-------");
@@ -151,6 +156,9 @@ public class Prueba{
               }
             }
           }else{
+            System.out.println("llegaro");
+            System.out.println(inst);
+            System.out.println("-------");
             int cantmin = inst.length();
             if(cantmin > 1){
               //////////////////////////////X->ab///////////////////////////////
@@ -313,7 +321,7 @@ public class Prueba{
         int ver = 0;
         int tam = repetidos.size();
         while(ver < tam){
-          String inst =(repetidos.get(ver)).substring(3,((repetidos.get(ver)).length())-1);
+          String inst =(repetidos.get(ver)).substring(3,((repetidos.get(ver)).length()));
           if(verificarRegla(inst)){
             if(verificarRetornable(inst, actual.substring(0,1))){
               int cantmin = inst.length()-1;
@@ -416,9 +424,10 @@ public class Prueba{
   public static boolean verificarRegla(String instruccion){
     int cont = 0;
     boolean siono = false;
-    while(cont < instruccion.length()){
+    while(cont < listReglas.length){
       char posRegla = listReglas[cont];// AVISARLE A BARRIOS :)
-      if((instruccion.substring(instruccion.length()-1,instruccion.length())).charAt(0) == posRegla){
+      System.out.println(posRegla+" = "+instruccion.charAt(instruccion.length()-1));
+      if(instruccion.charAt(instruccion.length()-1) == posRegla){
         siono = true;
       }
       cont++;
@@ -428,6 +437,7 @@ public class Prueba{
 
   public static boolean verificarRetornable(String instruccion, String letra){
     boolean siono = false;
+    System.out.println(instruccion + letra+" eeeeeee");
     if(instruccion.substring(instruccion.length()-1,instruccion.length()).equals(letra)){
       siono = true;
     }

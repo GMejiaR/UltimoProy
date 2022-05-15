@@ -61,6 +61,7 @@ public class Conversion {
       if(((transicionLamb.get(i)).length() > 1) && ((transicionLamb.get(i+1)).length() > 1)){
         String actual = transicionLamb.get(i);
         actual = actual.replace(";", "");
+        transicionLamb.set(i, actual);
         
         String posnext = transicionLamb.get(i+1);
         posnext = posnext.replace(";", "");
@@ -95,13 +96,38 @@ public class Conversion {
       }
       System.out.println("|");
     }
-    
+    System.out.println();
+    System.out.println();
     //sacar un while con la matriz donde según el size de la pos de la arraylist con la clausura lambda vaya tirandole x veces al método con cambio, ahora lo que me devuelve el método tiene que ser el string en la linea de la letra en la posición que le mande, y si eso es diferente de o lo voy a copiar en la pos del [arreglolambda][letraalfabetovalidando]
     
 
     //lenar la matriz
     for(int i = 0; i < transicionLamb.size()-1; i ++){
       for(int j= 1; j < listAlfabeto.length; j++){
+        int cont = 0;
+        //string --> length()
+        //array --> length
+        //arraylist-->size()
+        while(cont < (transicionLamb.get(j)).length()){
+           System.out.println("Contador: " + cont);
+           System.out.println("Estado j: "+ j);
+          char elemento = (transicionLamb.get(j)).charAt(cont);
+          System.out.println("elemento lamba: " + elemento);
+          
+          String cambio = Cambio(path, elemento, j);
+          int llenar = transicionLamb.indexOf(cambio);
+          System.out.println("donde está el elemento del cambio: "+ llenar);
+          
+
+          if(llenar != 0){
+            
+            String finalPos = Integer.toString(llenar);
+            System.out.println("elemento a meter: "+ finalPos);
+            System.out.println("-----------------------------------");
+            matrizPos[i][j]= finalPos;
+          }
+          cont++;
+        }
         
         //
         //cont =0;
@@ -116,12 +142,41 @@ public class Conversion {
         
       }
     }
+// aki aki aki
+  for (int x=0; x < matrizPos.length; x++) {
+        System.out.print("|");
+      for (int y=0; y < matrizPos[x].length; y++) {
+        System.out.print (matrizPos[x][y]);
+        if (y!=matrizPos[x].length-1) System.out.print("\t");
+      }
+      System.out.println("|");
+    }
   
-    
-    
     archivo.close();
   }
-  //public static String Cambio(String path, Char numerolamda, String #letra);
+  
+  public static String Cambio(String path, char numerolamda, int letra) throws Exception{
+    File documento = new File(path);
+    Scanner archivo = new Scanner(documento);
+    archivo.next();
+    archivo.next();
+    archivo.next();
+    archivo.next();
+    int cont = 0;
+    String lineaLetra = "";
+    
+    while(cont < letra){
+       lineaLetra = archivo.next();
+      cont++;
+    }
+    
+    String[] transiciones = lineaLetra.split(",");
+    int posicionlamda = Character.getNumericValue(numerolamda);
+    String reemplazo = transiciones[posicionlamda];
+    
+    archivo.close();
+    return reemplazo;
+  }
   //next x4
   //dependiendo de la #letra hacemos cantidad next
   //en el string de la linea que hayamos llegado nos vamos a la posicion numero -- 2
