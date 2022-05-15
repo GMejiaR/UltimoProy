@@ -4,7 +4,7 @@ import java.util.*;
 public class Prueba{
   public static char[] listReglas;
   public static char[] listAlfabeto;
-  public static int[][] matrizafd;
+  public static String[][] matrizafd;
   
   public static void main(String[] args) throws Exception{
 
@@ -27,10 +27,12 @@ public class Prueba{
   // ------------ Alfabeto ------------
   String linea2 = archivo.next();
   String alfabeto = linea2.replace(",", "");
-  listAlfabeto = new char[alfabeto.length()];
-
-  for(int i = 0; i < listAlfabeto.length; i++){
-    listAlfabeto[i] = alfabeto.charAt(i);
+  listAlfabeto = new char[alfabeto.length()+1];
+  listAlfabeto[0] = '0';
+    int as = 0;
+  for(int i = 1; i < listAlfabeto.length; i++){
+    listAlfabeto[i] = alfabeto.charAt(as);
+    as++;
   }
 
   System.out.println("Lista de alfabeto leída: " + Arrays.toString(listAlfabeto));
@@ -41,36 +43,314 @@ public class Prueba{
   char SimbInicial = linea3.charAt(0);
   System.out.println("Símbolo inicial: " + SimbInicial);
 
-    int pollo = cantidadEstados(path);
+    
   //-------------------------------------------
+    int pollo = cantidadEstados(path);
+    System.out.println("Estdos: " + pollo);
+    matrizafd = new String[pollo][listAlfabeto.length];
+    
 
      // --------- Leer Archivo y Algoritmo ---------
-    int estact = 1;
+    int estact = 0;
     int cont = 0;////////CONTADOR---------------------!!!!!!!!!!!!!!!!!!! :D
     ArrayList<Character> patron = reglas(path);
+    patron.add(' ');
     patron.add(' ');
     while(archivo.hasNextLine()){
       String actual = archivo.next();
         // ------------- Validar Regla de Producción -------------  
       if (patron.get(cont) == patron.get(cont+1)){
+        ArrayList<String> repetidos = new ArrayList<String>();
+        repetidos.add(actual);
+        while(true){
+          if(archivo.hasNext()){
+            if (patron.get(cont) == patron.get(cont+1)){
+              actual = archivo.next();
+              repetidos.add(actual);
+              cont++;
+            }else{
+              break;
+            }
+          }else{
+              break;
+            }
+          
+        }
+        //////////////////////////////////////////////
+        int ver = 0;
+        int tam = repetidos.size();
+        ArrayList<String> examinado = new ArrayList<String>();
+        while(ver < tam){
+          String inst =(repetidos.get(ver)).substring(3,((repetidos.get(ver)).length())-1);
+          if(verificarRegla(inst)){
+            if(verificarRetornable(inst, actual.substring(0,1))){
+                 ////////////////////////
+              System.out.println("o");
+              int cantmin = inst.length()-1;
+              if(cantmin > 1){
+                System.out.println("q");
+                int ca1 = 0;
+                int ant = estact;
+                int a1 = 0;
+                int a2 = 1;
+                while(ca1<cantmin){
+                  if(ca1 == cantmin-1){
+                    String letraaqui = inst.substring(a1,a2);
+                    String aponer = Integer.toString(poscolm(letraaqui));
+                    String adonde = Integer.toString(estact+2);
+                    String ingresar = aponer+adonde;
+                    examinado.add(ingresar);
+                    estact = ant;
+                    break;
+                  }else{
+                    String letraaqui = inst.substring(a1,a2);
+                    String aponer = Integer.toString(poscolm(letraaqui));
+                    String adonde = Integer.toString(estact+2);
+                    String ingresar = aponer+adonde;
+                    examinado.add(ingresar);
+                    ca1++;
+                    estact++;
+                    a1++;
+                    a2++;
+                  }
+                }
+               // estadoss = estadoss + (cantmin-1);
+                cont++;
+              }else{
+                String letraaqui = inst.substring(0,1);
+                String aponer = Integer.toString(poscolm(letraaqui));
+                String adonde = Integer.toString(estact+1);
+                String ingresar = aponer+adonde;
+                examinado.add(ingresar);
+                System.out.println("aingresar: "+ingresar);
+              }
 
-        
+              ///////////////
+            }else{
+              int cantmin = inst.length();
+              if(cantmin > 1){
+              //  estadoss = estadoss + (cantmin-1);
+                cont++;
+              }else if(cantmin == 0){
+               // estadoss++;
+                cont++;
+              }
+            }
+          }else{
+            int cantmin = inst.length();
+            if(cantmin > 1){
+             // estadoss = estadoss + (cantmin-1);
+              cont++;
+            }
+          }
+          ver++;
+        }
+        ////////////////  
       }else{
-        String instruccion = actual.substring(2,actual.length());
+        String instruccion = actual.substring(3,actual.length());
         if(verificarRegla(instruccion)){
-          if(verificarRetornable(instruccion,actual.substring(0,1))){
-            // estamos men lo de retornar a si mismo cuando X = X del final en ese sentido faltan los demas
+          if(verificarRetornable(instruccion, actual.substring(0,1))){
+            int cantmin = instruccion.length()-1;
+            if(cantmin > 1){
+              /////////////////////////////////////////////////
+              int c3 = 1;
+              int au1 =0;
+              int au2 = 1;
+              int ant = estact;
+              while(c3<=cantmin){
+                if(c3 == cantmin-1){
+                  int ca1 = 0;
+                  int poscol = poscolm(instruccion.substring(au1,au2));
+                  
+                  while(ca1<listAlfabeto.length){
+                    if(ca1 == poscol){
+                      String adonde= Integer.toString(ant);
+                      matrizafd[estact][ca1] = adonde;
+                      System.out.println("instruccion5");
+                      System.out.println(adonde);
+                      
+                    }else{
+                      matrizafd[estact][ca1] = "0";
+                    }
+                    ca1++;
+                  }
+                  estact = ant;
+                  break;
+                }else{
+                  int ca1 = 0;
+                  int poscol = poscolm(instruccion.substring(au1,au2));
+                  
+                  while(ca1<listAlfabeto.length){
+                    if(ca1 == poscol){
+                      String adonde= Integer.toString(estact+2);
+                      matrizafd[estact][ca1] = adonde;
+                      System.out.println("instruccion4");
+                      System.out.println(adonde);
+                      
+                    }else{
+                      matrizafd[estact][ca1] = "0";
+                    }
+                    ca1++;
+                  }
+                  estact++;
+                  
+                  au1++;
+                  au2++;
+                }
+                c3++;
+              }
+              cont++;
+            }else{
+              int poscol = poscolm(instruccion.substring(0,1));
+              int c1 = 0;
+              while(c1<listAlfabeto.length){
+                if(c1 == poscol){
+                  String adonde= Integer.toString(estact);
+                  matrizafd[estact][c1] = adonde;
+                  System.out.println("instruccion3");
+                }else{
+                  matrizafd[estact][c1] = "0";
+                }
+              c1++;
+              }
+            }
+          }else{
+            int cantmin = instruccion.length();
+            if(cantmin > 1){
+              int c3 = 1;
+              int au1 =0;
+              int au2 = 1;
+              while(c3<=cantmin){
+                if(c3 == cantmin){
+                  break;
+                }else{
+                  int ca1 = 0;
+                  int poscol = poscolm(instruccion.substring(au1,au2));
+                  
+                  while(ca1<listAlfabeto.length){
+                    if(ca1 == poscol){
+                      String adonde= Integer.toString(estact+2);
+                      matrizafd[estact][ca1] = adonde;
+                      System.out.println("instruccion3");
+                      System.out.println(adonde);
+                      
+                    }else{
+                      matrizafd[estact][ca1] = "0";
+                    }
+                    ca1++;
+                  }
+                  estact++;
+                  cont++;
+                  au1++;
+                  au2++;
+                }
+                c3++;
+              }
+            }else if(cantmin == 0){
+              int poscol = poscolm(instruccion.substring(0,1));
+              int c1 = 0;
+              while(c1<listAlfabeto.length){
+                if(c1 == poscol){
+                  String adonde= Integer.toString(estact+2);
+                  matrizafd[estact][c1] = adonde;
+                  System.out.println("instruccion2");
+                }else{
+                  matrizafd[estact][c1] = "0";
+                }
+              c1++;
+              }
+              estact++;
+              cont++;
+            }
+          }
+        }else{
+          int cantmin = instruccion.length();
+          if(cantmin > 1){
+            int c3 = 1;
+            int au1 =0;
+            int au2 = 1;
+            while(c3<=cantmin){
+              if(c3 == cantmin-1){
+                int poscol = poscolm(instruccion.substring(0,1));
+                int c1 = 0;
+                while(c1<listAlfabeto.length){
+                  if(c1 == poscol){
+                    String adonde= Integer.toString(listAlfabeto.length);
+                    matrizafd[estact][c1] = adonde;
+                    System.out.println(instruccion);
+                  }else{
+                    matrizafd[estact][c1] = "0";
+                  }
+                c1++;
+                }
+                cont++;
+                break;
+              }else{
+                int ca1 = 0;
+                int poscol = poscolm(instruccion.substring(au1,au2));
+                  
+                while(ca1<listAlfabeto.length){
+                  if(ca1 == poscol){
+                    String adonde= Integer.toString(estact+2);
+                    matrizafd[estact][ca1] = adonde;
+                    System.out.println(adonde);
+                      
+                  }else{
+                    matrizafd[estact][ca1] = "0";
+                  }
+                  ca1++;
+                }
+                estact++;
+                cont++;
+                  au1++;
+                  au2++;
+                }
+                c3++;
+              }
+          }else{
+            
+            int poscol = poscolm(instruccion.substring(0,1));
+            int c1 = 0;
+            while(c1<listAlfabeto.length){
+              if(c1 == poscol){
+                
+                String adonde= Integer.toString(listAlfabeto.length);
+                matrizafd[estact][c1] = adonde;
+              }else{
+                matrizafd[estact][c1] = "0";
+              }
+            c1++;
+            }
+            cont++;
           }
         }
-        
-     
       }
-      
     }
-    archivo.close();
+    for (int x=0; x < matrizafd.length; x++) {
+      System.out.print("|");
+      for (int y=0; y < matrizafd[x].length; y++) {
+        System.out.print (matrizafd[x][y]);
+        if (y!=matrizafd[x].length-1) System.out.print("\t");
+      }
+      System.out.println("|");
     }
+   
 
-  
+  archivo.close();
+  }
+
+  public static int poscolm(String letra){
+    int contemos = 0;
+    int num = 0;
+    while(contemos < listAlfabeto.length){
+      if(letra.charAt(0) == listAlfabeto[contemos]){
+        num = contemos;
+        break;
+      }
+      contemos++;
+    } 
+    return num;
+  }
     ////AQUI
    public static int cantidadEstados(String Path) throws Exception{
     File doc = new File(Path);

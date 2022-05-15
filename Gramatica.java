@@ -80,12 +80,12 @@ public class Gramatica{
     
   }
 
-  public static boolean verificarRegla(String instruccion){
+    public static boolean verificarRegla(String instruccion){
     int cont = 0;
     boolean siono = false;
     while(cont < instruccion.length()){
-      String posRegla = listReglas[cont].toString();// AVISARLE A BARRIOS :)
-      if(instruccion.substring(instruccion.length()-1,instruccion.length()).equals(posRegla))){
+      char posRegla = listReglas[cont];// AVISARLE A BARRIOS :)
+      if((instruccion.substring(instruccion.length()-1,instruccion.length())).charAt(0) == posRegla){
         siono = true;
       }
       cont++;
@@ -99,9 +99,9 @@ public class Gramatica{
       siono = true;
     }
     return siono;
-  }
+}
 
-  public static int cantidadEstados(String Path) throws Exception{
+ public static int cantidadEstados(String Path) throws Exception{
     File doc = new File(Path);
     Scanner archivo2 = new Scanner(doc);
     archivo2.next();
@@ -113,24 +113,30 @@ public class Gramatica{
     int estadoss = 2;
     ArrayList<Character> patron = reglas(Path);
     patron.add(' ');
+    patron.add(' ');
     while(archivo2.hasNext()){
       String actual = archivo2.next();
       if (patron.get(cont) == patron.get(cont+1)){
         ArrayList<String> repetidos = new ArrayList<String>();
         repetidos.add(actual);
         while(true){
-          if (patron.get(cont) == patron.get(cont+1)){
-            actual = archivo2.next();
-            repetidos.add(actual);
-            cont++;
+          if(archivo2.hasNext()){
+            if (patron.get(cont) == patron.get(cont+1)){
+              actual = archivo2.next();
+              repetidos.add(actual);
+              cont++;
+            }else{
+              break;
+            }
           }else{
-            break;
-          }
+              break;
+            }
+          
         }
         int ver = 0;
         int tam = repetidos.size();
         while(ver < tam){
-          String inst =(repetidos.get(ver)).substring(2,tam-1);
+          String inst =(repetidos.get(ver)).substring(3,((repetidos.get(ver)).length())-1);
           if(verificarRegla(inst)){
             if(verificarRetornable(inst, actual.substring(0,1))){
               int cantmin = inst.length()-1;
@@ -145,6 +151,7 @@ public class Gramatica{
                 cont++;
               }else if(cantmin == 0){
                 estadoss++;
+                cont++;
               }
             }
           }else{
@@ -158,11 +165,12 @@ public class Gramatica{
         }
           
       }else{
-        String instruccion = actual.substring(2,actual.length());
+        String instruccion = actual.substring(3,actual.length());
         if(verificarRegla(instruccion)){
           if(verificarRetornable(instruccion, actual.substring(0,1))){
             int cantmin = instruccion.length()-1;
             if(cantmin > 1){
+              System.out.println("instr "+instruccion + cantmin);
               estadoss = estadoss + (cantmin-1);
               cont++;
             }
@@ -173,6 +181,7 @@ public class Gramatica{
               cont++;
             }else if(cantmin == 0){
               estadoss++;
+              cont++;
             }
           }
         }else{
@@ -185,9 +194,8 @@ public class Gramatica{
       }
     }
     archivo2.close();
-   
     return estadoss;
-  }
+  }//AQUI
 
   public static ArrayList<Character> reglas(String path) throws Exception{
     File documento = new File(path);
