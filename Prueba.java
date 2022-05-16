@@ -77,9 +77,11 @@ public class Prueba{
               repetidos.add(actual);
               cont++;
             }else{
+              //cont++;
               break;
             }
           }else{
+            //cont++;
               break;
             }
           
@@ -212,7 +214,36 @@ public class Prueba{
             int cantmin = inst.length();
             if(cantmin > 1){
               //////////////////////////////X->ab///////////////////////////////
+              int ca1 = 0;
+              int a1 = 0;
+              int a2 = 1;
+              while(ca1 < cantmin){
+                if(ca1 == cantmin-1){      
+                  String letraaqui = inst.substring(a1,a2);
+                  String aponer = Integer.toString(poscolm(letraaqui));
+                  String adonde = Integer.toString(pollo);
+                  String ingresar = aponer+adonde;
+                  examinado.add(ingresar);
+                  System.out.println("ingresar");
+                  System.out.println(ingresar);
+                  System.out.println("-------");
+                  ca1++;
 
+                }else{
+                  String letraaqui = inst.substring(a1,a2);
+                  String aponer = Integer.toString(poscolm(letraaqui));
+                  String adonde = Integer.toString(estact+2);
+                  String ingresar = aponer+adonde;
+                  examinado.add(ingresar);
+                  System.out.println("ingresar");
+                  System.out.println(ingresar);
+                  System.out.println("-------");
+                  ca1++;
+                  a1++;
+                  a2++;
+                  estact++;
+                }
+              }
               ////////////////////////////////////////////////////////////
             //  cont++;
             }else if(cantmin == 1){
@@ -312,12 +343,43 @@ public class Prueba{
           int cantmin = instruccion.length();
           if(cantmin > 1){
             ////////////////////////////X->ab////////////////////////////////////
+           /* int ca1 = 0;
+              int a1 = 0;
+              int a2 = 1;
+              while(ca1 < cantmin){
+                if(ca1 == cantmin-1){      
+                  String letraaqui = instruccion.substring(a1,a2);
+                  String aponer = Integer.toString(poscolm(letraaqui));
+                  String adonde = Integer.toString(pollo);
+                  String ingresar = aponer+adonde;
+                  examinado.add(ingresar);
+                  System.out.println("ingresar");
+                  System.out.println(ingresar);
+                  System.out.println("-------");
+                  ca1++;
 
+                }else{
+                  String letraaqui = instruccion.substring(a1,a2);
+                  String aponer = Integer.toString(poscolm(letraaqui));
+                  String adonde = Integer.toString(estact+2);
+                  String ingresar = aponer+adonde;
+                  
+                  ca1++;
+                  a1++;
+                  a2++;
+                  estact++;
+                }
+              }*/
             ////////////////////////////////////////////////////////////////
             cont++;
           }
         }
       }
+    }
+    int ca1 = 0;
+    while(ca1<listAlfabeto.length){
+      matrizafd[pollo-1][ca1] = "0";
+      ca1++;
     }
 
     
@@ -374,7 +436,9 @@ public class Prueba{
               repetidos.add(actual);
               cont++;
             }else{
+              cont++;
               break;
+              
             }
           }else{
               break;
@@ -390,23 +454,23 @@ public class Prueba{
               int cantmin = inst.length()-1;
               if(cantmin > 1){
                 estadoss = estadoss + (cantmin-1);
-                cont++;
+               // cont++;
               }
             }else{
               int cantmin = inst.length()-1;
               if(cantmin >= 1){
                 estadoss = estadoss + (cantmin);
-                cont++;
+               // cont++;
               }else if(cantmin == 0){
                 estadoss++;
-                cont++;
+               // cont++;
               }
             }
           }else{
             int cantmin = inst.length();
             if(cantmin > 1){
               estadoss = estadoss + (cantmin-1);
-              cont++;
+             // cont++;
             }
           }
           ver++;
@@ -420,23 +484,23 @@ public class Prueba{
             if(cantmin > 1){
               
               estadoss = estadoss + (cantmin-1);
-              cont++;
+             // cont++;
             }
           }else{
             int cantmin = instruccion.length();
             if(cantmin > 1){
               estadoss = estadoss + (cantmin-1);
-              cont++;
+             // cont++;
             }else if(cantmin == 0){
               estadoss++;
-              cont++;
+             // cont++;
             }
           }
         }else{
           int cantmin = instruccion.length();
           if(cantmin > 1){
             estadoss = estadoss + (cantmin-1);
-            cont++;
+           // cont++;
           }
         }
       }
