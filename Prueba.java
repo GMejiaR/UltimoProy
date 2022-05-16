@@ -62,6 +62,10 @@ public class Prueba{
     while(archivo.hasNext()){
       
       String actual = archivo.next();
+      System.out.println(estact + "aquiando");
+      System.out.println(cont);
+      System.out.println(patron.get(cont)+ "==" +patron.get(cont+1));
+      
       if (patron.get(cont) == patron.get(cont+1)){
         int estadoenmomento = estact;
         ArrayList<String> repetidos = new ArrayList<String>();
@@ -228,6 +232,7 @@ public class Prueba{
         }
         ingresomat(examinado,estadoenmomento);  
       }else{
+        System.out.println("en rec no deberia");
         String instruccion = actual.substring(3,actual.length());
         System.out.println("instruccion");
           System.out.println(instruccion);
