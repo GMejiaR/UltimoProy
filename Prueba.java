@@ -170,7 +170,7 @@ public class Prueba{
                     String adonde = Integer.toString(estact+2);
                     String ingresar = aponer+adonde;
                     examinado.add(ingresar);
-                    System.out.println("ingresar");
+                    System.out.println("ingresar X-aY");
                     System.out.println(ingresar);
                     System.out.println("-------");
                     ca1++;
@@ -212,7 +212,7 @@ public class Prueba{
             System.out.println(inst);
             System.out.println("-------");
             int cantmin = inst.length();
-            if(cantmin > 1){
+            if(cantmin >= 1){
               //////////////////////////////X->ab///////////////////////////////
               int ca1 = 0;
               int a1 = 0;
@@ -334,42 +334,59 @@ public class Prueba{
               cont++;
             }else if(cantmin == 0){
               ///////////////////////////////X->Y/////////////////////////////////////
-
+              
               ////////////////////////////////////////////////////////////////////
               cont++;
             }
           }
         }else{
           int cantmin = instruccion.length();
-          if(cantmin > 1){
+          if(cantmin >= 1){
             ////////////////////////////X->ab////////////////////////////////////
-           /* int ca1 = 0;
+            int ca1 = 0;
               int a1 = 0;
               int a2 = 1;
               while(ca1 < cantmin){
                 if(ca1 == cantmin-1){      
-                  String letraaqui = instruccion.substring(a1,a2);
-                  String aponer = Integer.toString(poscolm(letraaqui));
-                  String adonde = Integer.toString(pollo);
-                  String ingresar = aponer+adonde;
-                  examinado.add(ingresar);
-                  System.out.println("ingresar");
-                  System.out.println(ingresar);
-                  System.out.println("-------");
-                  ca1++;
+                  int ca2 = 0;
+                  int poscol = poscolm(instruccion.substring(a1,a2));
+                  
+                  while(ca2<listAlfabeto.length){
+                    if(ca2 == poscol){
+                      String adonde= Integer.toString(pollo);
+                      matrizafd[estact][ca2] = adonde;
+                      System.out.println("est "+estact+"ca2 "+ca2);
+                      System.out.println("instruccion3");
+                      System.out.println(adonde+"es fin");
+                      
+                    }else{
+                      matrizafd[estact][ca2] = "0";
+                    }
+                    ca2++;
+                  }
 
                 }else{
-                  String letraaqui = instruccion.substring(a1,a2);
-                  String aponer = Integer.toString(poscolm(letraaqui));
-                  String adonde = Integer.toString(estact+2);
-                  String ingresar = aponer+adonde;
+                  int ca2 = 0;
+                  int poscol = poscolm(instruccion.substring(a1,a2));
                   
-                  ca1++;
+                  while(ca2<listAlfabeto.length){
+                    if(ca2 == poscol){
+                      String adonde= Integer.toString(estact+2);
+                      matrizafd[estact][ca2] = adonde;
+                      
+                    }else{
+                      matrizafd[estact][ca2] = "0";
+                    }
+                    ca2++;
+                  }
+                  
+                  
                   a1++;
                   a2++;
                   estact++;
                 }
-              }*/
+                ca1++;
+              }
             ////////////////////////////////////////////////////////////////
             cont++;
           }

@@ -1,3 +1,4 @@
+
 import java.io.*;
 import java.util.*;
 import java.lang.*;
@@ -42,11 +43,11 @@ public class Conversion {
   // con ahora la matriz ir recorriendola y en otro método hacer el cambio desde la línea 5-7 para ver que hay en la posicion de la clausura con cada una de las letras
     String linea2 = archivo.next();
     int numEstadosN = Integer.parseInt(linea2);
-    archivo.next();
+    String estFinal = archivo.next();
     String linea4 = archivo.next();
   
     String[] transiciones = linea4.split(",");
-    System.out.println("Transiciones lambda: " + Arrays.toString(transiciones));
+    //System.out.println("Transiciones lambda: " + Arrays.toString(transiciones));
     
     ArrayList<String> transicionLamb = new ArrayList<String>();
     
@@ -55,13 +56,13 @@ public class Conversion {
       transicionLamb.add(transiciones[i]);
     }
     
-    transicionLamb.add("0");
+    /*transicionLamb.add("0");
     transicionLamb.add("12");
     transicionLamb.add("3");
     transicionLamb.add("5");
-    transicionLamb.add("4");
+    transicionLamb.add("4");*/
     
-    /*for(int i = 0; i<transicionLamb.size(); i++){
+    for(int i = 0; i<transicionLamb.size(); i++){
       if(((transicionLamb.get(i)).length() > 1) && ((transicionLamb.get(i+1)).length() > 1)){
         String actual = transicionLamb.get(i);
         actual = actual.replace(";", "");
@@ -75,11 +76,11 @@ public class Conversion {
         
         if(actual.equals(inverso.toString())){
           transicionLamb.remove(i+1);
-          System.out.println("Transicion borrada: " + transicionLamb);
+          //System.out.println("Transicion borrada: " + transicionLamb);
         }
       }
       
-    }*/
+    }
     
     //Crear la matriz y llenarla de 0
     String[][] matrizPos = new String[transicionLamb.size()-1][listAlfabeto.length];
@@ -116,12 +117,6 @@ public class Conversion {
           if(doble.size()  ==  1){
             matrizPos[i][j] = doble.get(0);
           }
-          /*if(doble.get(0) != "0"){
-            matrizPos[i][j] = doble.get(0);
-          }else if(doble.get(1) != "0"){
-            matrizPos[i][j] = doble.get(1);
-          }*/
-          
         }
         else{
           char elementotrans = transicionL.charAt(0);
@@ -155,9 +150,39 @@ public class Conversion {
     }
   
     archivo.close();
+  //ESCRIBIR ALFABETO
+  FileWriter res = new FileWriter(nombre +".afd");//meterle el nombre 
+  for(int i = 1; i < listAlfabeto.length; i++){
+    if(i == listAlfabeto.length-1){
+        res.write(listAlfabeto[i]);
+    }else{
+      res.write(listAlfabeto[i] + ",");
+    }
+  }
+
+  //ESCRIBIR #ESTADOS Y  ESTADOS FINALES
+  res.write('\n');
+  res.write(Integer.toString(transicionLamb.size()));
+  res.write('\n');
+  res.write(estFinal);
+  res.write('\n');
+
+  //ESCRIBIR TRANSICIONES
+  for(int i = 0; i < transicionLamb.size()-1; i ++){
+      for(int j= 0; j < listAlfabeto.length; j++){
+        if(j == listAlfabeto.length-1){
+          res.write(matrizPos[i][j]);
+          res.write('\n');
+      }else{
+        res.write(matrizPos[i][j] + ",");
+      }
+        
+      }
+    }
+  res.close();  
   }
   
-  public static String Cambio(String path, char numerolamda, int letra) throws Exception{
+public static String Cambio(String path, char numerolamda, int letra) throws Exception{
     File documento = new File(path);
     Scanner archivo = new Scanner(documento);
     archivo.next();
@@ -179,9 +204,4 @@ public class Conversion {
     archivo.close();
     return reemplazo;
   }
-  //next x4
-  //dependiendo de la #letra hacemos cantidad next
-  //en el string de la linea que hayamos llegado nos vamos a la posicion numero -- 2
-  //regresamos lo que está en esa posición  ->0
-  
 }
