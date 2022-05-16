@@ -103,43 +103,59 @@ public class Conversion {
 
     //lenar la matriz
     for(int i = 0; i < transicionLamb.size()-1; i ++){
-      for(int j= 1; j < listAlfabeto.length; j++){
+      for(int j = 1; j < listAlfabeto.length; j++){
         int cont = 0;
         //string --> length()
         //array --> length
         //arraylist-->size()
-        while(cont < (transicionLamb.get(j)).length()){
-           System.out.println("Contador: " + cont);
-           System.out.println("Estado j: "+ j);
-          char elemento = (transicionLamb.get(j)).charAt(cont);
-          System.out.println("elemento lamba: " + elemento);
-          
-          String cambio = Cambio(path, elemento, j);
-          int llenar = transicionLamb.indexOf(cambio);
-          System.out.println("donde está el elemento del cambio: "+ llenar);
-          
-
-          if(llenar != 0){
+        String transicionL = transicionLamb.get(i+1);
+        
+        if(transicionL.length() > 1){
+          ArrayList<String> doble = new ArrayList<String>();
+          while(cont < 2){
+            System.out.println("Contador: " + cont);
+            System.out.println("Estado j: "+ j);
+            char elemento = transicionL.charAt(cont);
+            System.out.println("elemento lamba: " + elemento);
+            String cambio = Cambio(path, elemento, j);
             
+            int llenar = transicionLamb.indexOf(cambio);
             String finalPos = Integer.toString(llenar);
-            System.out.println("elemento a meter: "+ finalPos);
-            System.out.println("-----------------------------------");
-            matrizPos[i][j]= finalPos;
+            doble.add(finalPos);
+            System.out.println("donde está el elemento del cambio: "+ llenar);
+              
+            cont++;
           }
-          cont++;
+          for(int k = 0; k < doble.size(); k++){
+            if(doble.get(k) != "0"){
+              matrizPos[i][j]= doble.get(k);
+            }
+            
+          }
+
+          
         }
-        
-        //
-        //cont =0;
-        //while(cont< por length de la pos[j] en el arreglo transiionLamb)){ -->12
-            //char at cont -->1
-            // mandarlo al cambio -->j 1
-            //lo que nos regrese del cambio -->3
-            //le hacemos un contain al arraylist y la posicion en la que esté ese contains va a ser la que vamos a ir a poner en la posición en la que estamos iterando->0
-          //if (lo que nos regrese del contains != 0) lo ponemos en esa pos [i][j]
-          //
-        //}
-        
+        else{
+            char elementotrans = transicionL.charAt(0);
+            //System.out.println("elemento lamba: " + elemento);
+            String cambio = Cambio(path, elementotrans, j);
+            
+            for(int k = 1; k<transicionLamb.size();k++){
+              if(transicionLamb.get(k).length()>1){
+                  char estado = (transicionLamb.get(k)).charAt(0);
+                  char estado2 =(transicionLamb.get(k)).charAt(1);
+                  if((Character.toString(estado)).startsWith(cambio) | (Character.toString(estado)).startsWith(cambio)){
+                    matrizPos[i][j] = Integer.toString(k);
+                  }
+                
+              }else{
+                char estado =(transicionLamb.get(k)).charAt(0);
+                if((Character.toString(estado)).startsWith(cambio)){
+                  matrizPos[i][j] = Integer.toString(k);
+                }
+              }
+            }
+        }
       }
     }
 // aki aki aki

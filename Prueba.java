@@ -63,6 +63,7 @@ public class Prueba{
       
       String actual = archivo.next();
       if (patron.get(cont) == patron.get(cont+1)){
+        int estadoenmomento = estact;
         ArrayList<String> repetidos = new ArrayList<String>();
         repetidos.add(actual);
         while(true){
@@ -88,6 +89,7 @@ public class Prueba{
           System.out.println(inst);
           System.out.println("-------");
           if(verificarRegla(inst)){
+            System.out.println("debo estar aqui");
             int tamaño = ((repetidos.get(ver)).length());
             String ojo = (repetidos.get(ver)).substring(tamaño-1,tamaño);
             System.out.println("ojo");
@@ -100,13 +102,6 @@ public class Prueba{
               int cantmin = inst.length()-1;
               if(cantmin > 1){
                 ///////////////////////////////X->baX//////////////////////////////////////
-
-                /////////////////////////////////////////////////////////////////////
-                int a = 0;
-                  cont++;
-              }else if(cantmin == 1){
-                ///////////////////////////////X->bX//////////////////////////////////////
-                System.out.println("q");
                 int ca1 = 0;
                 int ant = estact;
                 int a1 = 0;
@@ -115,7 +110,7 @@ public class Prueba{
                   if(ca1 == cantmin-1){
                     String letraaqui = inst.substring(a1,a2);
                     String aponer = Integer.toString(poscolm(letraaqui));
-                    String adonde = Integer.toString(estact+2);
+                    String adonde = Integer.toString(ant+1);
                     String ingresar = aponer+adonde;
                     examinado.add(ingresar);
                     System.out.println("ingresar");
@@ -139,24 +134,74 @@ public class Prueba{
                   }
                 }
                 /////////////////////////////////////////////////////////////////////
+                
+                  cont++;
+              }else if(cantmin == 1){
+                ///////////////////////////////X->bX//////////////////////////////////////
+                String letraaqui = inst.substring(0,1);
+                String aponer = Integer.toString(poscolm(letraaqui));
+                String adonde = Integer.toString(estact+1);
+                String ingresar = aponer+adonde;
+                examinado.add(ingresar);
+                System.out.println("ingresar");
+                System.out.println(ingresar);
+                System.out.println("-------");
+                /////////////////////////////////////////////////////////////////////
                 cont++;
               }
             }else{
               int cantmin = inst.length()-1;
               if(cantmin >= 1){
                 ///////////////////////////////X->aY//////////////////////////////////////
-
+                int ca1 = 0;
+                int a1 = 0;
+                int a2 = 1;
+                while(ca1 < cantmin){
+                  if(ca1 == cantmin-1){
+                    String letraaqui = inst.substring(a1,a2);
+                    String aponer = Integer.toString(poscolm(letraaqui));
+                    String adonde = Integer.toString(estact+2);
+                    String ingresar = aponer+adonde;
+                    examinado.add(ingresar);
+                    System.out.println("ingresar");
+                    System.out.println(ingresar);
+                    System.out.println("-------");
+                    ca1++;
+                    estact++;
+                    System.out.println(estact);
+                  }else{
+                    String letraaqui = inst.substring(a1,a2);
+                    String aponer = Integer.toString(poscolm(letraaqui));
+                    String adonde = Integer.toString(estact+2);
+                    String ingresar = aponer+adonde;
+                    examinado.add(ingresar);
+                    System.out.println("ingresar");
+                    System.out.println(ingresar);
+                    System.out.println("-------");
+                    ca1++;
+                    a1++;
+                    a2++;
+                    estact++;
+                  }
+                }
                 ////////////////////////////////////////////////////////////////////
                 cont++;
               }else if(cantmin == 0){
                 ///////////////////////////////X->Y/////////////////////////////////////
-
+                String aponer = "0";
+                String adonde = Integer.toString(estact+2);
+                String ingresar = aponer+adonde;
+                examinado.add(ingresar);
+                System.out.println("ingresar");
+                System.out.println(ingresar);
+                System.out.println("-------");
+                estact++;
                 ////////////////////////////////////////////////////////////////////
                 cont++;
               }
             }
           }else{
-            System.out.println("llegaro");
+            System.out.println("por que estoy aqui");
             System.out.println(inst);
             System.out.println("-------");
             int cantmin = inst.length();
@@ -165,11 +210,23 @@ public class Prueba{
 
               ////////////////////////////////////////////////////////////
               cont++;
+            }else if(cantmin == 1){
+              //////////////////////////////X->b///////////////////////////////
+              String letraaqui = inst.substring(0,1);
+              String aponer = Integer.toString(poscolm(letraaqui));
+              String adonde = Integer.toString(pollo);
+              String ingresar = aponer+adonde;
+              examinado.add(ingresar);
+              System.out.println("ingresar que pasa");
+              System.out.println(ingresar);
+              System.out.println("-------");
+              ////////////////////////////////////////////////////////////
+              cont++;
             }
           }
           ver++;
         }
-          
+        ingresomat(examinado,estadoenmomento);  
       }else{
         String instruccion = actual.substring(3,actual.length());
         System.out.println("instruccion");
@@ -179,7 +236,7 @@ public class Prueba{
           if(verificarRetornable(instruccion, actual.substring(0,1))){
             int cantmin = instruccion.length()-1;
             if(cantmin > 1){
-              System.out.println("instr "+instruccion + cantmin);
+              System.out.println("por que estoy aqui");
               ///////////////////////X->abX///////////////////////////////
 
               //////////////////////////////////////////////////////
@@ -355,7 +412,7 @@ public class Prueba{
           if(verificarRetornable(instruccion, actual.substring(0,1))){
             int cantmin = instruccion.length()-1;
             if(cantmin > 1){
-              System.out.println("instr "+instruccion + cantmin);
+              
               estadoss = estadoss + (cantmin-1);
               cont++;
             }
@@ -432,16 +489,51 @@ public class Prueba{
       }
       cont++;
     }
+    System.out.println("termina en W");
+    System.out.println(siono);
     return siono;
   }
 
   public static boolean verificarRetornable(String instruccion, String letra){
     boolean siono = false;
-    System.out.println(instruccion + letra+" eeeeeee");
+    System.out.println("retornable");
     if(instruccion.substring(instruccion.length()-1,instruccion.length()).equals(letra)){
       siono = true;
     }
+    System.out.println(siono);
+    
     return siono;
+  }
+
+  public static void ingresomat(ArrayList<String> verificar,int estadoenmomento){
+
+    
+    int ca = 0;
+    while(ca < listAlfabeto.length){
+      String yacasi = "";
+      int cc = 0;
+      while(cc< verificar.size()){
+        char que = (verificar.get(cc)).charAt(0);
+        int puede = Character.getNumericValue(que);
+        
+        if(poscolm(String.valueOf(listAlfabeto[ca])) == puede){
+          if(yacasi.length() == 0){
+            yacasi = yacasi + (verificar.get(cc)).charAt(1);
+          }else{
+            yacasi = yacasi + ";" + (verificar.get(cc)).charAt(1);
+          }
+        }
+        cc++;
+      }
+      if(yacasi.length() >0){
+        matrizafd[estadoenmomento][ca] = yacasi;
+                      
+      }else{
+        matrizafd[estadoenmomento][ca] = "0";
+      }
+      ca++;
+    }  
+    
   }
       
 }  
