@@ -64,7 +64,7 @@ public class Prueba{
       String actual = archivo.next();
       System.out.println(estact + "aquiando");
       System.out.println(cont);
-      System.out.println(patron.get(cont)+ "==" +patron.get(cont+1));
+      System.out.println(patron.get(cont)+ "=" +patron.get(cont+1));
       
       if (patron.get(cont) == patron.get(cont+1)){
         int estadoenmomento = estact;
@@ -84,6 +84,7 @@ public class Prueba{
             }
           
         }
+        cont++;
         int ver = 0;
         int tam = repetidos.size();
         ArrayList<String> examinado = new ArrayList<String>();
@@ -139,7 +140,7 @@ public class Prueba{
                 }
                 /////////////////////////////////////////////////////////////////////
                 
-                  cont++;
+                 // cont++;
               }else if(cantmin == 1){
                 ///////////////////////////////X->bX//////////////////////////////////////
                 String letraaqui = inst.substring(0,1);
@@ -151,7 +152,7 @@ public class Prueba{
                 System.out.println(ingresar);
                 System.out.println("-------");
                 /////////////////////////////////////////////////////////////////////
-                cont++;
+              //  cont++;
               }
             }else{
               int cantmin = inst.length()-1;
@@ -189,7 +190,7 @@ public class Prueba{
                   }
                 }
                 ////////////////////////////////////////////////////////////////////
-                cont++;
+               // cont++;
               }else if(cantmin == 0){
                 ///////////////////////////////X->Y/////////////////////////////////////
                 String aponer = "0";
@@ -201,7 +202,7 @@ public class Prueba{
                 System.out.println("-------");
                 estact++;
                 ////////////////////////////////////////////////////////////////////
-                cont++;
+              //  cont++;
               }
             }
           }else{
@@ -213,7 +214,7 @@ public class Prueba{
               //////////////////////////////X->ab///////////////////////////////
 
               ////////////////////////////////////////////////////////////
-              cont++;
+            //  cont++;
             }else if(cantmin == 1){
               //////////////////////////////X->b///////////////////////////////
               String letraaqui = inst.substring(0,1);
@@ -225,7 +226,7 @@ public class Prueba{
               System.out.println(ingresar);
               System.out.println("-------");
               ////////////////////////////////////////////////////////////
-              cont++;
+              //cont++;
             }
           }
           ver++;
