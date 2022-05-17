@@ -6,6 +6,9 @@ public class Gramatica{
   public static char[] listReglas;
   public static char[] listAlfabeto;
   public static String[][] matrizafd;
+  public static int[][] matriz;
+  public static char[] listaAlfabeto;
+  public static int[] estadoFin;
   
 	public static void main(String[] args) throws Exception{
 		//Su codigo aqui
@@ -15,7 +18,8 @@ public class Gramatica{
     
     if (banderita.equals("-afn")){
       creador(ArchGramatica,nomArchivo);
-      conversion()
+      Conversion(nomArchivo,nomArchivo+".afn");
+      
     }else if(banderita.equals("-afd")){
       //No se como hacer esto 
     }else{
@@ -576,11 +580,47 @@ public class Gramatica{
     archivo.write(finals);
     archivo.write('\n');
 
-    for (int x=0; x < matrizafd.length; x++) {
+   /* for (int x=0; x < matrizafd.length; x++) {
+      System.out.print("|");
       for (int y=0; y < matrizafd[x].length; y++) {
-        System.out.println(matrizafd[y][x]);
-        if (y!=matrizafd[x].length-1) archivo.write("\n");
+        System.out.print (matrizafd[x][y]);
+        if (y!=matrizafd[x].length-1) System.out.print("\t");
       }
+      System.out.println("|");
+    }*/
+
+    int y1 = 0;
+    int x1 = 0;
+    while(y1 <  matrizafd[x1].length){
+      int x2 = 0;
+      System.out.print ("0,");
+      while(x2 < matrizafd.length){
+        if (x2==matrizafd.length-1){
+          System.out.print(matrizafd[x2][y1]);
+        }else{
+          System.out.print (matrizafd[x2][y1]+",");
+        }
+        x2++;
+      }
+      System.out.print ("\n");
+      y1++;
+    }
+
+    y1 = 0;
+    x1 = 0;
+    while(y1 <  matrizafd[x1].length){
+      int x2 = 0;
+      archivo.write("0,");
+      while(x2 < matrizafd.length){
+        if (x2==matrizafd.length-1){
+          archivo.write(matrizafd[x2][y1]);
+        }else{
+          archivo.write(matrizafd[x2][y1]+",");
+        }
+        x2++;
+      }
+      archivo.write("\n");
+      y1++;
     }
     
     archivo.close();
@@ -704,7 +744,7 @@ public class Gramatica{
   
     archivo.close();
   //ESCRIBIR ALFABETO
-  FileWriter res = new FileWriter(nombre +".afd");//meterle el nombre 
+  FileWriter res = new FileWriter(nombre+".afd");//meterle el nombre 
   for(int i = 1; i < listAlfabeto.length; i++){
     if(i == listAlfabeto.length-1){
         res.write(listAlfabeto[i]);
@@ -733,8 +773,8 @@ public class Gramatica{
       }
     }
   res.close();
-  }
-
+}
+//-------------------------------------------------------------------------------
   public static String Cambio(String path, char numerolamda, int letra) throws Exception{
     File documento = new File(path);
     Scanner archivo = new Scanner(documento);
@@ -758,6 +798,6 @@ public class Gramatica{
     return reemplazo;
   }
 
+// Pegar aki aki aki 
   
-  
-}
+} 

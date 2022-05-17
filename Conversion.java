@@ -1,4 +1,3 @@
-
 import java.io.*;
 import java.util.*;
 import java.lang.*;
@@ -34,20 +33,13 @@ public class Conversion {
   
     System.out.println("Lista de alfabeto leída: " + Arrays.toString(listAlfabeto));
   ///ALFABETO--------------------
-  
-  //1. sacar alfabeto -->YA
-  //2. sacar transiciones lambda de la 4ta línea en un método a parte
-    //--->2.1 CASES ver si esas transiciones tienen los mismos elementos a otras para juntarlas en un mismo arreglo y si son diferentes ponerlas en un arreglo aparte en siguiente posición --> YA
-    
-  // hacer una matriz con matriz[alfabeto][lengthtransicioneslambda]
-  // con ahora la matriz ir recorriendola y en otro método hacer el cambio desde la línea 5-7 para ver que hay en la posicion de la clausura con cada una de las letras
+
     String linea2 = archivo.next();
     int numEstadosN = Integer.parseInt(linea2);
     String estFinal = archivo.next();
     String linea4 = archivo.next();
   
     String[] transiciones = linea4.split(",");
-    //System.out.println("Transiciones lambda: " + Arrays.toString(transiciones));
     
     ArrayList<String> transicionLamb = new ArrayList<String>();
     
@@ -76,7 +68,7 @@ public class Conversion {
         
         if(actual.equals(inverso.toString())){
           transicionLamb.remove(i+1);
-          //System.out.println("Transicion borrada: " + transicionLamb);
+
         }
       }
       
@@ -98,9 +90,6 @@ public class Conversion {
     for(int i = 0; i < transicionLamb.size()-1; i ++){
       for(int j = 1; j < listAlfabeto.length; j++){
         int cont = 0;
-        //string --> length()
-        //array --> length
-        //arraylist-->size()
         String transicionL = transicionLamb.get(i+1);
         
         if(transicionL.length() > 1){
@@ -204,4 +193,56 @@ public static String Cambio(String path, char numerolamda, int letra) throws Exc
     archivo.close();
     return reemplazo;
   }
+  
+public int getTransition(int currentState, char symbol){
+		int contador = 0;
+    boolean sisonon = false;
+    while(contador < this.listaAlfabeto.length){
+      if(symbol == listaAlfabeto[contador]){
+        sisonon = true;
+        break;
+      }  
+      contador++;
+    }
+
+    if(sisonon == true){
+      //evaluando en la matriz a donde me muevo
+      int filabusc = 0;
+      while(symbol != listaAlfabeto[filabusc]){
+        filabusc++;
+      }
+      return matriz[filabusc][currentState];  
+    }else{
+      return 0;
+    }
+	}
+
+	/*
+		Implemente el metodo accept, que recibe como argumento
+		un String que representa la cuerda a evaluar, y devuelve
+		un boolean dependiendo de si la cuerda es aceptada o no 
+		por el afd
+	*/
+	public boolean accept(String string){
+		int cont1 = 0;
+    int posact = 1;
+    boolean respuesta = false;
+    while(cont1 < string.length()){ // ver a donde llega 
+      char transicion = string.charAt(cont1);
+      posact = getTransition(posact,transicion);
+      cont1++;
+    }
+
+    int cont2=0;
+    while(cont2 < estadoFin.length){ //verificar estados finales
+      if(posact == estadoFin[cont2]){
+        respuesta = true;
+      }
+      cont2++;
+    }
+		return respuesta;
+	}
+  
+
+  
 }
